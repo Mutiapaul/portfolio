@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Paul M. Mutia — OJT Digital Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #e8212a;
+    --red-dim: rgba(232,33,42,0.3);
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface-2: #1c1c1c;
+    --border: #2a2a2a;
+    --text: #ffffff;
+    --muted: #aaaaaa;
+    --dim: #666666;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+  img, video { max-width: 100%; display: block; }
+  button { font-family: inherit; cursor: pointer; }
+
+  :focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 48px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--dim);
+    text-transform: uppercase;
+    border-bottom: 0.5px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 200;
+    gap: 16px;
+  }
+
+  .topbar-brand { flex-shrink: 0; }
+
+  .topbar-nav {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .topbar-nav::-webkit-scrollbar { display: none; }
+
+  .topbar-nav a {
+    color: var(--dim);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding-bottom: 4px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--red); }
+  .topbar-nav a.active { color: var(--red); border-color: var(--red); }
+
+  .topbar-date { flex-shrink: 0; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    width: 30px;
+    height: 26px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--muted);
+    transition: transform 0.25s, opacity 0.25s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 60px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent 60%, #1a0000 100%);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 10vw, 96px);
+    color: var(--red);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .photo-wrap {
+    display: inline-block;
+    width: clamp(70px, 9vw, 96px);
+    height: clamp(62px, 7.5vw, 84px);
+    overflow: hidden;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin: 0 8px;
+    position: relative;
+    top: -4px;
+    border: 2px solid var(--red);
+  }
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(100%) contrast(1.1);
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 460px;
+    line-height: 1.8;
+    margin-top: 22px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 0.5px solid var(--border);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta span::before {
+    content: '';
+    width: 4px; height: 4px;
+    background: var(--red);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .btn-primary, .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 99px;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: #fff;
+    border: 1px solid var(--red);
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: #ff2b34; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 0.5px solid var(--border);
+  }
+  .btn-outline:hover { transform: translateY(-2px); border-color: var(--red); color: var(--red); }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 64px 48px;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 8vw, 76px);
+    color: var(--text);
+    line-height: 0.9;
+    margin-bottom: 12px;
+  }
+
+  .section-intro {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  /* ── FOLDER EXPLORER ── */
+  .folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+  }
+
+  .folder-block { display: flex; flex-direction: column; }
+
+  .folder-toggle {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+    color: var(--text);
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .folder-toggle::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--red);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .folder-toggle:hover { border-color: #444; transform: translateY(-2px); }
+  .folder-toggle:hover::before,
+  .folder-toggle[aria-expanded="true"]::before { opacity: 1; }
+  .folder-toggle[aria-expanded="true"] {
+    background: var(--surface-2);
+    border-color: var(--red-dim);
+  }
+
+  .folder-icon {
+    width: 34px; height: 28px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+  .folder-toggle[aria-expanded="true"] .folder-icon { transform: rotate(-4deg) scale(1.05); }
+
+  .folder-text { flex: 1; min-width: 0; }
+  .folder-name { font-size: 13px; font-weight: 500; }
+  .folder-count { font-size: 10px; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; display: block; }
+
+  .folder-chevron {
+    width: 10px; height: 10px;
+    border-right: 1.5px solid var(--dim);
+    border-bottom: 1.5px solid var(--dim);
+    transform: rotate(45deg);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+  }
+  .folder-toggle[aria-expanded="true"] .folder-chevron {
+    transform: rotate(-135deg);
+    border-color: var(--red);
+  }
+
+  .album-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .album-inner { padding: 22px 2px 6px; }
+
+  /* ── GALLERY TRACK ── */
+  .gallery-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 6px 2px 16px;
+    scroll-snap-type: x proximity;
+    cursor: grab;
+    scrollbar-color: var(--red) var(--surface);
+    scrollbar-width: thin;
+  }
+  .gallery-track:active { cursor: grabbing; }
+  .gallery-track::-webkit-scrollbar { height: 6px; }
+  .gallery-track::-webkit-scrollbar-track { background: var(--surface); border-radius: 99px; }
+  .gallery-track::-webkit-scrollbar-thumb { background: var(--red); border-radius: 99px; }
+
+  .gallery-item {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .gallery-item:hover { border-color: #444; transform: translateY(-3px); }
+
+  .gallery-media {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #101010;
+    position: relative;
+    cursor: zoom-in;
+  }
+  .gallery-media img, .gallery-media video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover .gallery-media img,
+  .gallery-item:hover .gallery-media video { transform: scale(1.06); }
+
+  .gallery-media .play-badge {
+    position: absolute;
+    bottom: 8px; right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: 0.5px solid var(--red-dim);
+    color: var(--red);
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 99px;
+    pointer-events: none;
+  }
+
+  .gallery-info { padding: 14px 16px 16px; }
+  .gallery-title { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+  .gallery-desc { font-size: 11.5px; color: #888; line-height: 1.6; margin-bottom: 12px; min-height: 34px; }
+
+  .more-btn {
+    background: transparent;
+    border: 0.5px solid var(--red-dim);
+    color: var(--red);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 99px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .more-btn:hover { background: var(--red); color: #fff; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(3px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+    animation: fadeIn 0.25s ease both;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    animation: scaleIn 0.3s cubic-bezier(0.4,0,0.2,1) both;
+  }
+
+  .modal-media { width: 100%; aspect-ratio: 16/9; background: #101010; overflow: hidden; }
+  .modal-media img, .modal-media video { width: 100%; height: 100%; object-fit: cover; }
+
+  .modal-body { padding: 26px 28px 30px; position: relative; }
+
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: 0.5px solid var(--border);
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .modal-close:hover { background: var(--red); }
+
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--text); margin-bottom: 14px; letter-spacing: 0.02em; }
+  .modal-desc { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+
+  .modal-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 0.5px solid var(--border);
+  }
+  .modal-meta div span { display: block; }
+  .modal-meta .m-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+  .modal-meta .m-value { font-size: 12px; color: var(--text); }
+
+  .modal-notes { margin-top: 18px; font-size: 12px; color: #888; line-height: 1.7; font-style: italic; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 32px;
+    animation: fadeIn 0.2s ease both;
+  }
+  .lightbox-overlay.open { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; animation: scaleIn 0.25s ease both; }
+  .lightbox-close {
+    position: absolute; top: 20px; right: 28px;
+    color: #fff; font-size: 28px; line-height: 1;
+    background: none; border: none;
+  }
+  .lightbox-close:hover { color: var(--red); }
+
+  /* ── VIDEO LIGHTBOX ── */
+  .video-lightbox-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    padding: 32px;
+    animation: fadeIn 0.2s ease both;
+  }
+  .video-lightbox-overlay.open { display: flex; }
+  .video-lightbox-box {
+    width: 100%;
+    max-width: 900px;
+    animation: scaleIn 0.25s ease both;
+  }
+  .video-lightbox-box video {
+    width: 100%;
+    max-height: 72vh;
+    border-radius: 10px;
+    background: #000;
+    display: block;
+  }
+  .video-lightbox-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+  }
+  .video-lightbox-controls button {
+    background: transparent;
+    border: 0.5px solid var(--red-dim);
+    color: var(--red);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 99px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .video-lightbox-controls button:hover,
+  .video-lightbox-controls button.active { background: var(--red); color: #fff; }
+  .video-lightbox-controls .speed-group { display: flex; gap: 6px; align-items: center; }
+  .video-lightbox-controls .speed-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-right: 4px; }
+  .video-lightbox-close {
+    position: absolute; top: 20px; right: 28px;
+    color: #fff; font-size: 28px; line-height: 1;
+    background: none; border: none;
+  }
+  .video-lightbox-close:hover { color: var(--red); }
+
+  /* ── REFLECTION ── */
+  .reflection-article {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .reflection-article p { font-size: 13.5px; color: var(--muted); line-height: 1.95; }
+  .reflection-article p::first-letter {
+    color: var(--red);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    margin-right: 2px;
+  }
+
+  /* ── CLOSING ── */
+  .closing { text-align: left; }
+  .closing-message { font-size: 14px; color: var(--muted); line-height: 1.9; max-width: 560px; margin-bottom: 34px; }
+
+  .closing-logos { display: flex; gap: 16px; margin-bottom: 34px; flex-wrap: wrap; }
+  .logo-badge {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    border: 0.5px dashed var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding: 8px;
+  }
+
+  .closing-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 0.5px solid var(--border);
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .closing-meta span { display: flex; align-items: center; gap: 6px; }
+  .closing-meta span::before { content: ''; width: 4px; height: 4px; background: var(--red); border-radius: 50%; }
+  .closing-meta .footer-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--red); letter-spacing: 0.06em; text-transform: none; }
+  .closing-meta .footer-name::before { display: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeLeft { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes fadeRight { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .topbar-nav {
+      display: none;
+      position: fixed;
+      top: 53px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 0;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .topbar-nav.open { display: flex; }
+    .topbar-nav a { padding: 12px 24px; border-bottom: 0.5px solid var(--border); width: 100%; }
+    .nav-toggle { display: flex; }
+  }
+
+  @media (max-width: 700px) {
+    .topbar { padding: 12px 20px; }
+    .hero { padding: 40px 20px 36px; }
+    .section { padding: 48px 20px; }
+    .folder-container { grid-template-columns: 1fr; }
+    .gallery-item { flex-basis: 210px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <span class="topbar-brand">OJT Portfolio</span>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mainNav">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="topbar-nav" id="mainNav" aria-label="Section navigation">
+    <a href="#top">Home</a>
+    <a href="#social">Social Media</a>
+    <a href="#infographics">Infographics</a>
+    <a href="#posters">Posters</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#videos">Videos</a>
+    <a href="#documentary">Documentary</a>
+    <a href="#reflection">Reflection</a>
+    <a href="#closing">Closing</a>
+  </nav>
+  <span class="topbar-date">June 2026</span>
+</header>
+
+<!-- HERO / HOME -->
+<section class="hero" id="top">
+  <div class="hero-headline">
+    OJT DIGITAL<br>PORT<span class="photo-wrap"><img src="photo.png" alt="John Paul M. Mutia headshot" loading="lazy"></span>FOLIO
+  </div>
+  <p class="hero-sub">Welcome to my OJT Digital Portfolio. This portfolio showcases the creative works, technical skills, and learning experiences I developed throughout my On-the-Job Training.</p>
+  <div class="hero-meta">
+    <span>John Paul M. Mutia</span>
+    <span>BSCS — North Eastern Mindanao State University</span>
+    <span>Assigned Office/Unit: Public Health Unit (PHU)</span>
+    <span>OJT Duration:[JULY 6 2026-JULY 26 2026]</span>
+  </div>
+  <div class="cta-group">
+    <a href="#social" class="btn-primary">View My Works</a>
+    <a href="#reflection" class="btn-outline">Reflection</a>
+  </div>
+</section>
+
+<!-- CREATIVE WORKS EXPLORER -->
+<section class="section reveal" id="works" aria-label="Creative Works">
+  <div class="section-label">Creative Works</div>
+  <div class="section-title">MY<br>WORKS</div>
+  <p class="section-intro">Browse each folder below to explore the creative outputs I produced during my On-the-Job Training. Click a folder to open it.</p>
+
+  <div class="folder-container">
+
+    <div class="folder-block" id="social">
+      <button class="folder-toggle" data-target="social-album" aria-expanded="false" aria-controls="social-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Social Media Graphics</span>
+          <span class="folder-count">2 items</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="social-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Social Media Graphics gallery, scroll left and right">
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/4.png" alt="Social media graphic 1" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">PHU JOB ORDER SYSTEM</h4>
+                <p class="gallery-desc"> Designed a promotional graphic introducing the PHU Job Order System. The objective was to communicate how the system streamlines job requests, assignment tracking, and workflow management through an engaging visual presentation.</p>
+                <button class="more-btn" data-title="PHU Program Announcement" data-img="4.png" data-desc="Designed a vertical social media graphic to announce a program/update from the Provincial Health Unit (PHU), following the office's official red-and-white branding for consistency across posts." data-software="Adobe Photoshop" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Typography, Color Theory" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/5.png" alt="Social media graphic 2" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">PHU Attendance Monitoring System</h4>
+                <p class="gallery-desc">Created an alternative promotional layout highlighting the key features of the attendance monitoring system.</p>
+                <button class="more-btn" data-title="PHU Awareness Post" data-img="5.png" data-desc="Created a companion social media graphic for a PHU awareness campaign, keeping the same visual identity and tone as the rest of the office's Facebook page content." data-software="Adobe Photoshop" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Typography, Color Theory" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block" id="infographics">
+      <button class="folder-toggle" data-target="infographics-album" aria-expanded="false" aria-controls="infographics-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Infographics</span>
+          <span class="folder-count">4 items</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="infographics-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Infographics gallery, scroll left and right">
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/6.png" alt="Infographic 1" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">BACK PAGE CORE EXERCISE</h4>
+                <p class="gallery-desc">Landscape infographic breaking down a health topic using icons and short text blocks.</p>
+                <button class="more-btn" data-title="Health Infographic 1" data-img="6.png" data-desc="Designed a landscape infographic that simplifies a health-related topic into icons, short text, and a clear step-by-step visual flow for easy public understanding." data-software="Adobe Illustrator" data-date="[Add date]" data-role="Graphic Designer" data-skills="Data Visualization, Iconography" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/7.png" alt="Infographic 2" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">BACK PAGE - ERGONOMICS</h4>
+                <p class="gallery-desc">Developed an educational infographic explaining proper ergonomics in the workplace. The design presents correct posture, safe lifting techniques, and injury prevention practices using simplified illustrations and easy-to-understand visual sections.</p>
+                <button class="more-btn" data-title="Health Infographic 2" data-img="7.png" data-desc="Produced an infographic organizing health information into clearly labeled sections, using consistent iconography and color-coding to guide the reader." data-software="Adobe Illustrator" data-date="[Add date]" data-role="Graphic Designer" data-skills="Information Design" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/8.png" alt="Infographic 3" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">FRONT PAGE CORE EXERCISE 3</h4>
+                <p class="gallery-desc">Designed a tri-fold health education brochure promoting proper body mechanics and ergonomic practices.</p>
+                <button class="more-btn" data-title="Health Infographic 3" data-img="8.png" data-desc="Created a public-facing infographic summarizing health guidance, designed to be quickly understood at a glance for social media distribution." data-software="Canva" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Simplification" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/9.png" alt="Infographic 4" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">FRONT PAGE - ERGONOMICS</h4>
+                <p class="gallery-desc">Developed an educational infographic explaining proper ergonomics in the workplace. The design presents correct posture, safe lifting techniques, and injury prevention practices using simplified illustrations and easy-to-understand visual sections.</p>
+                <button class="more-btn" data-title="Health Infographic 4" data-img="9.png" data-desc="Designed the fourth piece in a series of health infographics, maintaining the same layout system and color palette as the rest of the set for brand consistency." data-software="Canva" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Simplification" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block" id="posters">
+      <button class="folder-toggle" data-target="posters-album" aria-expanded="false" aria-controls="posters-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Event Posters</span>
+          <span class="folder-count">1 item</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="posters-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Event Posters gallery, scroll left and right">
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/Tarp.jpeg" alt="Event poster / tarpaulin design" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">National Lung Month Celebration Tarpaulin</h4>
+                <p class="gallery-desc">tarpaulin layout supporting the National Lung Month celebration. The design promotes public awareness through vibrant visuals, child-friendly illustrations, and clear event branding while maintaining institutional identity.</p>
+                <button class="more-btn" data-title="Event Tarpaulin" data-img="Tarp.jpeg" data-desc="Designed a print-ready tarpaulin used for an office event or program, sized and laid out for large-format printing and on-site display." data-software="Adobe Photoshop" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Print Design" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block" id="certificates">
+      <button class="folder-toggle" data-target="certificates-album" aria-expanded="false" aria-controls="certificates-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Certificate Designs</span>
+          <span class="folder-count">1 item</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="certificates-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Certificate Designs gallery, scroll left and right">
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/11.png" alt="Certificate design" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">Certificate of Accomplishment</h4>
+                <p class="gallery-desc">Designed a professional certificate recognizing the successful completion of internship duties. The layout follows formal institutional standards while emphasizing readability, hierarchy, and official branding.</p>
+                <button class="more-btn" data-title="Certificate of Recognition/Participation" data-img="11.png" data-desc="Designed a certificate template used to formally recognize participants or awardees of an office activity, following a clean, print-ready layout." data-software="Adobe Illustrator" data-date="[Add date]" data-role="Graphic Designer" data-skills="Layout, Print-Ready Design" data-notes="[Add any extra notes about this output]">More</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block" id="videos">
+      <button class="folder-toggle" data-target="videos-album" aria-expanded="false" aria-controls="videos-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Promotional Videos</span>
+          <span class="folder-count">1 item</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="videos-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Promotional Videos gallery, scroll left and right">
+
+            <article class="gallery-item">
+              <div class="gallery-media">
+                <video class="hover-video" src="images/PromoV.mp4" muted loop playsinline preload="metadata"></video>
+                <span class="play-badge">Click to play with sound</span>
+              </div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">ASTMMC PROMOTIONAL  VIDEO</h4>
+                <p class="gallery-desc">Short promotional/highlight video (about 28 seconds).</p>
+                <button class="more-btn" data-title="PHU Promotional Video" data-img="" data-desc="Edited a short promotional video (around 28 seconds) compiling footage of office activities and events for the Provincial Health Unit's social media page." data-software="Adobe Premiere Pro" data-date="[Add date]" data-role="Video Editor" data-skills="Editing, Motion Graphics" data-notes="Duration: ~28 seconds">More</button>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="folder-block" id="documentary">
+      <button class="folder-toggle" data-target="documentary-album" aria-expanded="false" aria-controls="documentary-album">
+        <svg class="folder-icon" viewBox="0 0 34 28" fill="none" aria-hidden="true"><path d="M2 4a2 2 0 0 1 2-2h8l3 3h15a2 2 0 0 1 2 2v17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4Z" fill="#e8212a" fill-opacity="0.18" stroke="#e8212a" stroke-width="1.5"/></svg>
+        <span class="folder-text">
+          <span class="folder-name">Documentary Photos</span>
+          <span class="folder-count">14 items</span>
+        </span>
+        <span class="folder-chevron"></span>
+      </button>
+      <div class="album-content" id="documentary-album">
+        <div class="album-inner">
+          <div class="gallery-track" tabindex="0" aria-label="Documentary Photos gallery, scroll left and right">
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/A.jpeg" alt="Documentary photo A" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">UPO O OOPO.</p>
+                <button class="more-btn" data-title="First Day at PHU" data-img="A.jpeg" data-desc="Orientation day at the Provincial Health Unit, the start of my OJT journey." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Orientation day at the Provincial Health Unit, the start of my OJT journey.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/B.jpeg" alt="Documentary photo B" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc"></p>
+                <button class="more-btn" data-title="Workstation Setup" data-img="B.jpeg" data-desc="Setting up my workstation for graphic design tasks at the office." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Setting up my workstation for graphic design tasks at the office.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/C.jpeg" alt="Documentary photo C" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">.</p>
+                <button class="more-btn" data-title="Design Task in Progress" data-img="C.jpeg" data-desc="Working on a graphic design output during office hours." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Working on a graphic design output during office hours.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/D.jpeg" alt="Documentary photo D" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">.</p>
+                <button class="more-btn" data-title="Team Meeting" data-img="D.jpeg" data-desc="Sitting in on a team meeting with PHU staff to discuss upcoming projects." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Sitting in on a team meeting with PHU staff to discuss upcoming projects.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/E.jpeg" alt="Documentary photo E" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">ECHO O ECOBAG.</p>
+                <button class="more-btn" data-title="Office Collaboration" data-img="E.jpeg" data-desc="Collaborating with a co-intern/staff member on a design task." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Collaborating with a co-intern/staff member on a design task.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/F.jpeg" alt="Documentary photo F" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">TOURISM PRODUCT.</p>
+                <button class="more-btn" data-title="Photography Session" data-img="F.jpeg" data-desc="My first time doing event photography — capturing a PHU activity." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: My first time doing event photography — capturing a PHU activity.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/G.jpeg" alt="Documentary photo G" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">COCONUT VINEGAR.</p>
+                <button class="more-btn" data-title="Event Coverage" data-img="G.jpeg" data-desc="On-site documentation of a health program or event held by the office." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: On-site documentation of a health program or event held by the office.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/H.jpeg" alt="Documentary photo H" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">.</p>
+                <button class="more-btn" data-title="Behind the Scenes" data-img="H.jpeg" data-desc="Behind-the-scenes moment while preparing materials for an event." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Behind-the-scenes moment while preparing materials for an event.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/I.jpeg" alt="Documentary photo I" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">PATO O PATOLA.</p>
+                <button class="more-btn" data-title="Community Outreach" data-img="I.jpeg" data-desc="Documenting a community outreach or health awareness activity." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Documenting a community outreach or health awareness activity.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/J.jpeg" alt="Documentary photo J" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">BAHALAG SAGING BASTA LABING</p>
+                <button class="more-btn" data-title="Group Photo with Staff" data-img="J.jpeg" data-desc="Group photo with PHU staff and fellow interns." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Group photo with PHU staff and fellow interns.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/K.jpeg" alt="Documentary photo K" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">RIBBON CUTTING</p>
+                <button class="more-btn" data-title="Presentation of Output" data-img="K.jpeg" data-desc="Presenting a finished design output to my supervisor for review." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Presenting a finished design output to my supervisor for review.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/L.jpeg" alt="Documentary photo L" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">PATO o PATOLA PADIN.</p>
+                <button class="more-btn" data-title="Office Activity" data-img="L.jpeg" data-desc="Participating in an office activity as part of my OJT experience." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Participating in an office activity as part of my OJT experience.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/M.jpeg" alt="Documentary photo M" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMES WEEK</h4>
+                <p class="gallery-desc">MANNY o Mani.</p>
+                <button class="more-btn" data-title="Field Documentation" data-img="M.jpeg" data-desc="Capturing field documentation photos during an office-led event." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: Capturing field documentation photos during an office-led event.">More</button>
+              </div>
+            </article>
+
+            <article class="gallery-item">
+              <div class="gallery-media"><img src="images/N.jpeg" alt="Documentary photo N" loading="lazy"></div>
+              <div class="gallery-info">
+                <h4 class="gallery-title">LOCAL FARMERS WEEK</h4>
+                <p class="gallery-desc">.</p>
+                <button class="more-btn" data-title="Closing Days of OJT" data-img="N.jpeg" data-desc="One of the final days of my OJT, reflecting on the experience gained." data-software="—" data-date="[Add date]" data-role="—" data-skills="—" data-notes="Caption: One of the final days of my OJT, reflecting on the experience gained.">More</button>
+              </div>
+            </article>
+</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="section reveal" id="reflection">
+  <div class="section-label">Reflection</div>
+  <div class="section-title">MY<br>REFLECTION</div>
+  <article class="reflection-article">
+    <p>Throughout my OJT at PHU, I learned that graphic design in a real workplace setting is very different from just making things look good in class. Every output I made had a real purpose whether it was a social media post, an infographic, or a tarpaulin it had to communicate clearly to real people, not just look nice on a screen.</p>
+    <p>In terms of skills, I realized that graphic design is not just about designing it's about how you hook your audience based on the story behind the design. A graphic only works if the message and the visuals come together to make someone stop scrolling and actually pay attention.</p>
+    <p>Among all the projects I completed, the PHU Job Order System was my favorite because of its clean layout, balanced composition, and carefully selected color palette.</p>
+    <p>Of course, it wasn't without challenges. I struggled with planning what content to make for reels, and I didn't know much about video editing going in. Figuring out what story to tell in a short video format, and learning the editing tools along the way, pushed me to learn skills I didn't expect to need.</p>
+    <p>Overall, my OJT experience at PHU was terrific. I enjoyed it so much, especially when I got to take photos for documentation it was my first time doing that kind of work, and it opened my eyes to a whole new side of creative work I hadn't explored before.</p>
+  </article>
+</section>
+
+<!-- CLOSING -->
+<section class="section closing" id="closing">
+  <div class="section-label">Closing</div>
+  <div class="section-title">THANK<br>YOU</div>
+  <p class="closing-message">Thank you for taking the time to explore my OJT Digital Portfolio. I would like to extend my heartfelt gratitude to the entire staff of the Public Health Unit (PHU) for their guidance, patience, and support throughout my internship. Thank you for being there every step of the way the lessons and tips I learned will be carried forward and applied in my future endeavors. This experience truly strengthened my creativity, professionalism, technical skills, and passion for continuous learning.</p>
+  <div class="closing-logos">
+    <div class="logo-badge"><img src="images/school.jpeg" alt="North Eastern Mindanao State University Seal" style="width:100%;height:100%;object-fit:contain;border-radius:50%;"></div>
+  </div>
+  <div class="closing-meta">
+    <span class="footer-name">John Paul M. Mutia</span>
+    <span>Supervisor: </span>
+    <span>Muttajohnpaul1@gmail.com</span>
+    <span>09678047235</span>
+  </div>
+</section>
+
+<!-- PROJECT DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Close details">&times;</button>
+    <div class="modal-media"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-body">
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-meta">
+        <div><span class="m-label">Software Used</span><span class="m-value" id="modalSoftware"></span></div>
+        <div><span class="m-label">Date</span><span class="m-value" id="modalDate"></span></div>
+        <div><span class="m-label">Role</span><span class="m-value" id="modalRole"></span></div>
+        <div><span class="m-label">Skills Applied</span><span class="m-value" id="modalSkills"></span></div>
+      </div>
+      <p class="modal-notes" id="modalNotes"></p>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- VIDEO LIGHTBOX -->
+<div class="video-lightbox-overlay" id="videoLightboxOverlay">
+  <button class="video-lightbox-close" id="videoLightboxClose" aria-label="Close video preview">&times;</button>
+  <div class="video-lightbox-box">
+    <video id="videoLightboxPlayer" controls playsinline></video>
+    <div class="video-lightbox-controls">
+      <button id="videoMuteBtn" type="button" aria-pressed="false">Mute</button>
+      <div class="speed-group">
+        <span class="speed-label">Speed</span>
+        <button type="button" class="speed-btn" data-speed="0.5">0.5x</button>
+        <button type="button" class="speed-btn active" data-speed="1">1x</button>
+        <button type="button" class="speed-btn" data-speed="1.5">1.5x</button>
+        <button type="button" class="speed-btn" data-speed="2">2x</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── SCROLL REVEAL ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => revealObserver.observe(r));
+
+  /* ── MOBILE NAV TOGGLE ── */
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ── SCROLL SPY ── */
+  const navLinks = Array.from(mainNav.querySelectorAll('a'));
+  const spySections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = '#' + entry.target.id;
+      const link = navLinks.find(a => a.getAttribute('href') === id);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  spySections.forEach(s => spyObserver.observe(s));
+
+  /* ── FOLDER ACCORDION ── */
+  const folderToggles = document.querySelectorAll('.folder-toggle');
+  folderToggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.dataset.target;
+      const target = document.getElementById(targetId);
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // close all others
+      folderToggles.forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          const otherTarget = document.getElementById(other.dataset.target);
+          if (otherTarget) otherTarget.style.maxHeight = null;
+        }
+      });
+
+      if (isOpen) {
+        btn.setAttribute('aria-expanded', 'false');
+        target.style.maxHeight = null;
+      } else {
+        btn.setAttribute('aria-expanded', 'true');
+        target.style.maxHeight = target.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // keep open album sized correctly on window resize
+  window.addEventListener('resize', () => {
+    const openBtn = document.querySelector('.folder-toggle[aria-expanded="true"]');
+    if (openBtn) {
+      const target = document.getElementById(openBtn.dataset.target);
+      target.style.maxHeight = target.scrollHeight + 'px';
+    }
+  });
+
+  /* ── DRAG-TO-SCROLL + KEYBOARD NAV FOR GALLERY TRACKS ── */
+  document.querySelectorAll('.gallery-track').forEach(track => {
+    let isDown = false, startX, scrollLeft;
+
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    track.addEventListener('mouseleave', () => { isDown = false; });
+    track.addEventListener('mouseup', () => { isDown = false; });
+    track.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      track.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { track.scrollBy({ left: 220, behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { track.scrollBy({ left: -220, behavior: 'smooth' }); }
+    });
+  });
+
+  /* ── VIDEO HOVER PREVIEW ── */
+  document.querySelectorAll('.hover-video').forEach(video => {
+    const item = video.closest('.gallery-item');
+    item.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+    item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+  });
+
+  /* ── PROJECT DETAIL MODAL ── */
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalSoftware = document.getElementById('modalSoftware');
+  const modalDate = document.getElementById('modalDate');
+  const modalRole = document.getElementById('modalRole');
+  const modalSkills = document.getElementById('modalSkills');
+  const modalNotes = document.getElementById('modalNotes');
+  let lastFocused = null;
+
+  document.querySelectorAll('.more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      lastFocused = btn;
+      const modalMedia = document.querySelector('.modal-media');
+      if (btn.dataset.img) {
+        modalMedia.style.display = '';
+        modalImg.src = btn.dataset.img;
+        modalImg.alt = btn.dataset.title || '';
+      } else {
+        modalMedia.style.display = 'none';
+        modalImg.src = '';
+      }
+      modalTitle.textContent = btn.dataset.title || '';
+      modalDesc.textContent = btn.dataset.desc || '';
+      modalSoftware.textContent = btn.dataset.software || '—';
+      modalDate.textContent = btn.dataset.date || '—';
+      modalRole.textContent = btn.dataset.role || '—';
+      modalSkills.textContent = btn.dataset.skills || '—';
+      modalNotes.textContent = btn.dataset.notes || '';
+      modalOverlay.classList.add('open');
+      document.getElementById('modalClose').focus();
+    });
+  });
+
+  function closeModal() {
+    modalOverlay.classList.remove('open');
+    if (lastFocused) lastFocused.focus();
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+
+  /* ── IMAGE LIGHTBOX (click image thumbnail, not the More button) ── */
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  document.querySelectorAll('.gallery-media').forEach(media => {
+    media.addEventListener('click', () => {
+      const img = media.querySelector('img');
+      const thumbVideo = media.querySelector('video');
+      if (thumbVideo) { openVideoLightbox(thumbVideo); return; }
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxOverlay.classList.add('open');
+    });
+  });
+
+  function closeLightbox() { lightboxOverlay.classList.remove('open'); }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); });
+
+  /* ── VIDEO LIGHTBOX (click a video thumbnail to open it larger, with audio, mute, and speed controls) ── */
+  const videoLightboxOverlay = document.getElementById('videoLightboxOverlay');
+  const videoLightboxPlayer = document.getElementById('videoLightboxPlayer');
+  const videoMuteBtn = document.getElementById('videoMuteBtn');
+  const speedBtns = document.querySelectorAll('.speed-btn');
+
+  function openVideoLightbox(thumbVideo) {
+    // pause the small hover-preview version so audio/playback don't overlap
+    thumbVideo.pause();
+    thumbVideo.currentTime = 0;
+
+    videoLightboxPlayer.src = thumbVideo.currentSrc || thumbVideo.src;
+    videoLightboxPlayer.muted = false;
+    videoLightboxPlayer.playbackRate = 1;
+    videoMuteBtn.textContent = 'Mute';
+    videoMuteBtn.setAttribute('aria-pressed', 'false');
+    speedBtns.forEach(b => b.classList.toggle('active', b.dataset.speed === '1'));
+
+    videoLightboxOverlay.classList.add('open');
+    videoLightboxPlayer.play().catch(() => {});
+  }
+
+  function closeVideoLightbox() {
+    videoLightboxOverlay.classList.remove('open');
+    videoLightboxPlayer.pause();
+    videoLightboxPlayer.currentTime = 0;
+    videoLightboxPlayer.src = '';
+  }
+
+  document.getElementById('videoLightboxClose').addEventListener('click', closeVideoLightbox);
+  videoLightboxOverlay.addEventListener('click', (e) => { if (e.target === videoLightboxOverlay) closeVideoLightbox(); });
+
+  videoMuteBtn.addEventListener('click', () => {
+    videoLightboxPlayer.muted = !videoLightboxPlayer.muted;
+    videoMuteBtn.textContent = videoLightboxPlayer.muted ? 'Unmute' : 'Mute';
+    videoMuteBtn.setAttribute('aria-pressed', String(videoLightboxPlayer.muted));
+  });
+
+  speedBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      videoLightboxPlayer.playbackRate = parseFloat(btn.dataset.speed);
+      speedBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  /* ── ESCAPE KEY CLOSES ANY OVERLAY ── */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modalOverlay.classList.contains('open')) closeModal();
+      if (lightboxOverlay.classList.contains('open')) closeLightbox();
+      if (videoLightboxOverlay.classList.contains('open')) closeVideoLightbox();
+    }
+  });
+
+  /* ── SUBTLE PARALLAX ON HERO BACKGROUND GLOW ── */
+  const hero = document.querySelector('.hero');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      hero.style.setProperty('--parallax', y * 0.15 + 'px');
+      hero.style.backgroundPosition = `0 ${y * 0.15}px`;
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
